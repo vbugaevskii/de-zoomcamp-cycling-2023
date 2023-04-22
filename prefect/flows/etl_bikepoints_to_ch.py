@@ -5,6 +5,10 @@ import pandas as pd
 
 from prefect import flow, task
 from prefect_sqlalchemy import SqlAlchemyConnector
+from prefect_aws import AwsCredentials
+from prefect_aws.s3 import S3Bucket
+
+from typing import Dict
 
 
 def make_record(record: dict) -> dict:
@@ -24,7 +28,23 @@ def make_record(record: dict) -> dict:
 @task(retries=3)
 def fetch() -> pd.DataFrame:
     page = requests.get("https://api.tfl.gov.uk/BikePoint/")
+    return create_dataframe(page.json())
 
+
+@task()
+def fetch() -> pd.DataFrame:
+    AwsCredentials.load("yandex-cloud-s3-credentials")
+
+    s3_path = "metainfo_bike_point.json"
+    s3_block = S3Bucket.load("yandex-cloud-s3-bucket")
+    s3_block.download_object_to_path(from_path=s3_path, to_path=s3_path)
+
+    page = json.load(open(s3_path))
+    return create_dataframe(page)
+
+
+@task()
+def create_dataframe(content: Dict) -> pd.DataFrame:
     df = pd.DataFrame([make_record(record) for record in page.json()])
 
     df["Lat"] = df["Lat"].astype("float32")
@@ -49,7 +69,7 @@ def fetch() -> pd.DataFrame:
     return df
 
 
-def create_table(table):
+def create_table(table: str) -> str:
     return f'''
     CREATE TABLE IF NOT EXISTS default.{table}
     (
