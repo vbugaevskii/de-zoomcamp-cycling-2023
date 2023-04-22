@@ -35,3 +35,8 @@ prefect deployment apply etl_bikepoints_to_s3-deployment.yaml
 prefect deployment build flows/etl_bikepoints_to_ch.py:etl_bikepoints_to_ch  -n etl_bikepoints_to_ch --cron '2 6 * * *'
 prefect deployment apply etl_bikepoints_to_ch-deployment.yaml
 ```
+
+5. You can forward port using:
+```bash
+ssh -i ~/.ssh/dezoomcamp -L 4200:localhost:4200 -Nf vbugaevskii@51.250.65.248
+```

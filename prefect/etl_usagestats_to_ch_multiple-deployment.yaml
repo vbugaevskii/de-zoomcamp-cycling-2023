@@ -1,0 +1,52 @@
+###
+### A complete description of a Prefect Deployment for flow 'etl-usagestats-to-ch-multiple'
+###
+name: etl_usagestats_to_ch_multiple
+description: null
+version: 2e3827fa3c3b79252de608b4adcdc0ab
+# The work queue that will handle this deployment's runs
+work_queue_name: default
+tags: []
+parameters:
+  latest: 1
+schedule:
+  cron: 10 6 * * *
+  timezone: null
+  day_or: true
+infra_overrides: {}
+infrastructure:
+  type: process
+  env: {}
+  labels: {}
+  name: null
+  command: null
+  stream_output: true
+  working_dir: null
+  block_type_slug: process
+  _block_type_slug: process
+
+###
+### DO NOT EDIT BELOW THIS LINE
+###
+flow_name: etl-usagestats-to-ch-multiple
+manifest_path: null
+storage: null
+path: /Users/vladimir/Documents/de-zoomcamp-cycling-2023/prefect
+entrypoint: flows/etl_usagestats_to_ch.py:etl_usagestats_to_ch_multiple
+parameter_openapi_schema:
+  title: Parameters
+  type: object
+  properties:
+    partitions_num:
+      title: partitions_num
+      position: 0
+      type: array
+      items:
+        type: integer
+    latest:
+      title: latest
+      default: 50
+      position: 1
+      type: integer
+  required: null
+  definitions: null
