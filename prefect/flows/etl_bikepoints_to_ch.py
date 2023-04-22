@@ -50,6 +50,8 @@ def create_dataframe(content: Dict) -> pd.DataFrame:
     df["Lat"] = df["Lat"].astype("float32")
     df["Lon"] = df["Lon"].astype("float32")
 
+    df["TerminalName"] = df["TerminalName"].astype(int)
+
     df["Installed"] = df["Installed"] == "true"
     df["Locked"] = df["Locked"] == "true"
     df["Temporary"] = df["Temporary"] == "true"
@@ -75,6 +77,7 @@ def create_table(table: str) -> str:
     (
         Id                Int64,
         Name              String,
+        TerminalName      Int64,
         Lat               Float32,
         Lon               Float32,
         Installed         Bool,
@@ -86,8 +89,14 @@ def create_table(table: str) -> str:
         NbStandardBikes   Int8,
         NbEBikes          Int8
     )
-    ENGINE = Dictionary({table})
+    ENGINE = MergeTree()
+    ORDER BY Id
+    PRIMARY KEY Id
     '''
+
+
+def drop_table(table: str) -> str:
+    return f'DROP TABLE IF EXISTS default.{table}'
 
 
 @task()
@@ -96,6 +105,9 @@ def upload_ch(df: pd.DataFrame, table: str) -> None:
         print("Connection:", con)
         print("Engine:", con.get_engine())
         
+        sql_query = drop_table(table)
+        con.execute(sql_query)
+
         sql_query = create_table(table)
         con.execute(sql_query)
 
@@ -103,7 +115,7 @@ def upload_ch(df: pd.DataFrame, table: str) -> None:
             name=table,
             con=con.get_engine(),
             chunksize=100_000,
-            if_exists="replace",
+            if_exists="append",
             index=False,
         )
 
