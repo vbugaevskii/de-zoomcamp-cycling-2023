@@ -21,7 +21,8 @@ prefect agent start --work-queue "default"
 3. Create Prefect Blocks:
 
 - `AWS Credentials` named `yandex-cloud-s3-credentials`;
-- `S3Bucket` named `yandex-cloud-s3-bucket`.
+- `S3Bucket` named `yandex-cloud-s3-bucket`;
+- `SQLAlchemy Connector` named `yandex-cloud-clickhouse-connector`.
 
 4. Deploy commands:
 
