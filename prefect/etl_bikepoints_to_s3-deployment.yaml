@@ -1,0 +1,40 @@
+###
+### A complete description of a Prefect Deployment for flow 'etl-bikepoints-to-s3'
+###
+name: etl_bikepoints_to_s3
+description: null
+version: 5091bda5cf978c0ba16deea4864e392c
+# The work queue that will handle this deployment's runs
+work_queue_name: default
+tags: []
+parameters: {}
+schedule:
+  cron: 1 6 * * *
+  timezone: null
+  day_or: true
+infra_overrides: {}
+infrastructure:
+  type: process
+  env: {}
+  labels: {}
+  name: null
+  command: null
+  stream_output: true
+  working_dir: null
+  block_type_slug: process
+  _block_type_slug: process
+
+###
+### DO NOT EDIT BELOW THIS LINE
+###
+flow_name: etl-bikepoints-to-s3
+manifest_path: null
+storage: null
+path: /Users/vladimir/Documents/de-zoomcamp-cycling-2023/prefect
+entrypoint: flows/etl_bikepoints_to_s3.py:etl_bikepoints_to_s3
+parameter_openapi_schema:
+  title: Parameters
+  type: object
+  properties: {}
+  required: null
+  definitions: null

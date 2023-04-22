@@ -1,0 +1,52 @@
+###
+### A complete description of a Prefect Deployment for flow 'etl-usagestats-to-s3-multiple'
+###
+name: etl_usagestats_to_s3_multiple
+description: null
+version: 0c525299a91f052ab696d377905788f6
+# The work queue that will handle this deployment's runs
+work_queue_name: default
+tags: []
+parameters:
+  latest: 1
+schedule:
+  cron: 0 6 * * *
+  timezone: null
+  day_or: true
+infra_overrides: {}
+infrastructure:
+  type: process
+  env: {}
+  labels: {}
+  name: null
+  command: null
+  stream_output: true
+  working_dir: null
+  block_type_slug: process
+  _block_type_slug: process
+
+###
+### DO NOT EDIT BELOW THIS LINE
+###
+flow_name: etl-usagestats-to-s3-multiple
+manifest_path: null
+storage: null
+path: /Users/vladimir/Documents/de-zoomcamp-cycling-2023/prefect
+entrypoint: flows/etl_usagestats_to_s3.py:etl_usagestats_to_s3_multiple
+parameter_openapi_schema:
+  title: Parameters
+  type: object
+  properties:
+    partitions_num:
+      title: partitions_num
+      position: 0
+      type: array
+      items:
+        type: integer
+    latest:
+      title: latest
+      default: 50
+      position: 1
+      type: integer
+  required: null
+  definitions: null
