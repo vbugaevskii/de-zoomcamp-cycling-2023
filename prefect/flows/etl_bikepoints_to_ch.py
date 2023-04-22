@@ -1,4 +1,5 @@
 import re
+import json
 import requests
 
 import pandas as pd
@@ -43,9 +44,8 @@ def fetch() -> pd.DataFrame:
     return create_dataframe(page)
 
 
-@task()
 def create_dataframe(content: Dict) -> pd.DataFrame:
-    df = pd.DataFrame([make_record(record) for record in page.json()])
+    df = pd.DataFrame([make_record(record) for record in content])
 
     df["Lat"] = df["Lat"].astype("float32")
     df["Lon"] = df["Lon"].astype("float32")
