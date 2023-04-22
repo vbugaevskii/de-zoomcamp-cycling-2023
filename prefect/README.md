@@ -33,10 +33,10 @@ prefect deployment apply etl_usagestats_to_s3_multiple-deployment.yaml
 prefect deployment build flows/etl_usagestats_to_ch.py:etl_usagestats_to_ch_multiple -n etl_usagestats_to_ch_multiple --cron '10 6 * * *' --param latest=1
 prefect deployment apply etl_usagestats_to_ch_multiple-deployment.yaml
 
-prefect deployment build flows/etl_bikepoints_to_s3.py:etl_bikepoints_to_s3  -n etl_bikepoints_to_s3 --cron '0 6 * * *'
+prefect deployment build flows/etl_bikepoints_to_s3.py:etl_bikepoints_to_s3 -n etl_bikepoints_to_s3 --cron '0 6 * * *'
 prefect deployment apply etl_bikepoints_to_s3-deployment.yaml
 
-prefect deployment build flows/etl_bikepoints_to_ch.py:etl_bikepoints_to_ch  -n etl_bikepoints_to_ch --cron '5 6 * * *'
+prefect deployment build flows/etl_bikepoints_to_ch.py:etl_bikepoints_to_ch -n etl_bikepoints_to_ch --cron '5 6 * * *'
 prefect deployment apply etl_bikepoints_to_ch-deployment.yaml
 ```
 
