@@ -73,7 +73,7 @@ def drop_partition_table(table: str, partition_num: int) -> str:
     return f'ALTER TABLE default.{table} DROP PARTITION {partition_num}'
 
 
-@task()
+@task(retries=2)
 def upload_ch(df: pd.DataFrame, table: str, partition_num: int) -> None:
     with SqlAlchemyConnector.load("yandex-cloud-clickhouse-connector") as con:
         print("Connection:", con)
