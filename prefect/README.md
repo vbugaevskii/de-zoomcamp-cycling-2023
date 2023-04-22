@@ -29,14 +29,17 @@ prefect agent start --work-queue "default"
 prefect deployment build flows/etl_usagestats_to_s3.py:etl_usagestats_to_s3_multiple -n etl_usagestats_to_s3_multiple --cron '0 6 * * *' --param latest=1
 prefect deployment apply etl_usagestats_to_s3_multiple-deployment.yaml
 
-prefect deployment build flows/etl_bikepoints_to_s3.py:etl_bikepoints_to_s3  -n etl_bikepoints_to_s3 --cron '1 6 * * *'
+prefect deployment build flows/etl_usagestats_to_ch.py:etl_usagestats_to_ch_multiple -n etl_usagestats_to_ch_multiple --cron '10 6 * * *' --param latest=1
+prefect deployment apply etl_usagestats_to_ch_multiple-deployment.yaml
+
+prefect deployment build flows/etl_bikepoints_to_s3.py:etl_bikepoints_to_s3  -n etl_bikepoints_to_s3 --cron '0 6 * * *'
 prefect deployment apply etl_bikepoints_to_s3-deployment.yaml
 
-prefect deployment build flows/etl_bikepoints_to_ch.py:etl_bikepoints_to_ch  -n etl_bikepoints_to_ch --cron '2 6 * * *'
+prefect deployment build flows/etl_bikepoints_to_ch.py:etl_bikepoints_to_ch  -n etl_bikepoints_to_ch --cron '5 6 * * *'
 prefect deployment apply etl_bikepoints_to_ch-deployment.yaml
 ```
 
 5. You can forward port using:
 ```bash
-ssh -i ~/.ssh/dezoomcamp -L 4200:localhost:4200 -Nf vbugaevskii@51.250.65.248
+ssh -i ~/.ssh/dezoomcamp -L 4200:localhost:4200 -Nf vbugaevskii@158.160.45.104
 ```
