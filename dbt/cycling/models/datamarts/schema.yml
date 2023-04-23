@@ -6,3 +6,6 @@ models:
 
   - name: duration_per_bike
     description: Number of rides and total duration for bikes.
+
+  - name: popular_rides
+    description: Popular rides from start_station_id to end_station_id.
