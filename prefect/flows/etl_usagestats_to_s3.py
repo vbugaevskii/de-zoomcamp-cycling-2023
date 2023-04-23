@@ -32,7 +32,7 @@ def get_partition_num(path: str) -> int:
         return -1
 
 
-@task(retries=2, log_prints=True)
+@task(retries=0, log_prints=True)
 def find_available_partitions(latest: Optional[int] = None) -> List[str]:
     page = requests.get("https://s3-eu-west-1.amazonaws.com/cycling.data.tfl.gov.uk/?list-type=2")
     tree = lhtml.fromstring(page.content)
@@ -48,7 +48,7 @@ def find_available_partitions(latest: Optional[int] = None) -> List[str]:
     return partitions
 
 
-@task(retries=2, log_prints=True)
+@task(retries=0, log_prints=True)
 def fetch(partition_url: str) -> pd.DataFrame:
     print(f"partition_url={partition_url}")
 
@@ -100,7 +100,10 @@ def fetch(partition_url: str) -> pd.DataFrame:
     df = df[columns]
 
     for col in ["start_datetime", "end_datetime"]:
-        df[col] = pd.to_datetime(df[col])
+        try:
+            df[col] = pd.to_datetime(df[col])
+        except ValueError:
+            df[col] = pd.to_datetime(df[col], format="%d/%m/%Y %H:%M")
 
     for col in ["start_station_name", "end_station_name"]:
         df[col] = df[col].map(lambda s: re.sub(r"\s*,\s*", ", ", s))
@@ -187,4 +190,4 @@ def etl_usagestats_to_s3_multiple(partitions_num: Optional[List[int]] = None, la
 
 
 if __name__ == "__main__":
-    etl_usagestats_to_s3_multiple(latest=50)
+    etl_usagestats_to_s3_multiple(partitions_num=list(range(212, 314)))

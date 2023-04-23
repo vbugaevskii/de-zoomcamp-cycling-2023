@@ -124,4 +124,4 @@ def etl_usagestats_to_ch_multiple(partitions_num: Optional[List[int]] = None, la
 
 
 if __name__ == "__main__":
-    etl_usagestats_to_ch_multiple(latest=50)
+    etl_usagestats_to_ch_multiple(partitions_num=list(range(195, 314)))

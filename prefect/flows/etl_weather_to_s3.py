@@ -209,5 +209,5 @@ def etl_weather_to_s3_multiple(
 
 if __name__ == "__main__":
     etl_weather_to_s3_multiple(
-        partitions_num=list(range(202101, 202113)) 
+        partitions_num=list(range(202001, 202013)) 
     )
