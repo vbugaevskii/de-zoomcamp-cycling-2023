@@ -1,0 +1,15 @@
+yandex-cloud-clickhouse:
+  target: dev
+  outputs:
+    dev:
+      type: clickhouse
+      schema: sandbox
+      user: admin
+      password: ch_password
+      driver: http
+      port: 8443
+      host: rc1a-43ueb6khoglbpjtc.mdb.yandexcloud.net
+      retries: 1
+      verify: False
+      secure: True
+      threads: 4

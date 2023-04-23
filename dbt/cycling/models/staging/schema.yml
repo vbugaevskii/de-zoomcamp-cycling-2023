@@ -1,0 +1,80 @@
+version: 2
+
+sources:
+    - name: staging
+      schema: default
+
+      # loaded_at_field: record_loaded_at
+      tables:
+        - name: usage_stats
+        - name: bike_point
+
+models:
+    - name: stg_rides_info
+      description: >
+        Bicycle rides made by users of Transport for London (TfL).
+      columns:
+          - name: rental_id
+            description: RentalId provided by TfL.
+          - name: bike_id 
+            description: BikeId provided by TfL.
+
+          - name: start_station_id 
+            description: The StationId, where ride started.
+            tests:
+              - relationships:
+                  to: ref('bike_point')
+                  field: TerminalName
+                  severity: warn
+          - name: start_station_name 
+            description: The StationName, where ride started, usually address.
+          - name: start_datetime 
+            description: The DateTime, when ride started.
+          - name: start_station_lat 
+            description: The latitude of station, where ride started.
+            tests:
+              - relationships:
+                  to: ref('bike_point')
+                  field: Lat
+                  severity: warn
+          - name: start_station_lon
+            description: The longitude of station, where ride started.
+            tests:
+              - relationships:
+                  to: ref('bike_point')
+                  field: Lon
+                  severity: warn
+
+          - name: end_station_id 
+            description: The StationId, where ride ended.
+            tests:
+              - relationships:
+                  to: ref('bike_point')
+                  field: TerminalName
+                  severity: warn
+          - name: end_station_name 
+            description: The StationName, where ride ended, usually address.
+          - name: end_datetime 
+            description: The DateTime, when ride ended.
+          - name: end_station_lat 
+            description: The latitude of station, where ride ended.
+            tests:
+              - relationships:
+                  to: ref('bike_point')
+                  field: Lat
+                  severity: warn
+          - name: end_station_lon
+            description: The longitude of station, where ride ended.
+            tests:
+              - relationships:
+                  to: ref('bike_point')
+                  field: Lon
+                  severity: warn
+
+          - name: duration
+            description: Total trip duration, calculated based on end_datetime and start_datetime
+            tests:
+              - dbt_utils.expression_is_true:
+                  expression: ">= 0"
+                  severity: warn
+          

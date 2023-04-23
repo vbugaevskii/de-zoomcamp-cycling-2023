@@ -1,0 +1,8 @@
+version: 2
+
+models:
+  - name: cnt_rides_per_day
+    description: Number of rides made in each day.
+
+  - name: duration_per_bike
+    description: Number of rides and total duration for bikes.
