@@ -1,0 +1,59 @@
+###
+### A complete description of a Prefect Deployment for flow 'etl-weather-to-s3-multiple'
+###
+name: etl_weather_to_s3_multiple
+description: null
+version: c2231fcddb6a9ae01fcc9c34f19959a7
+# The work queue that will handle this deployment's runs
+work_queue_name: default
+tags: []
+parameters: {}
+schedule:
+  cron: 5 6 * * *
+  timezone: null
+  day_or: true
+infra_overrides: {}
+
+###
+### DO NOT EDIT BELOW THIS LINE
+###
+flow_name: etl-weather-to-s3-multiple
+manifest_path: null
+infrastructure:
+  type: process
+  env: {}
+  labels: {}
+  name: null
+  command: null
+  stream_output: true
+  working_dir: null
+  _block_document_id: 8e5191ea-2d22-47ac-8dce-9bc1f99e6334
+  _block_document_name: anonymous-b4239fb3-e6e0-4d2b-b3a1-34299a4e8454
+  _is_anonymous: true
+  block_type_slug: process
+  _block_type_slug: process
+storage: null
+path: /Users/vladimir/Documents/de-zoomcamp-cycling-2023/prefect
+entrypoint: flows/etl_weather_to_s3.py:etl_weather_to_s3_multiple
+parameter_openapi_schema:
+  title: Parameters
+  type: object
+  properties:
+    partitions_num:
+      title: partitions_num
+      position: 0
+      type: array
+      items:
+        type: integer
+    metrics:
+      title: metrics
+      default:
+      - tasmin
+      - tasmax
+      - rainfall
+      position: 1
+      type: array
+      items:
+        type: string
+  required: null
+  definitions: null

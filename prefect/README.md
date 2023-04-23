@@ -38,6 +38,9 @@ prefect deployment apply etl_bikepoints_to_s3-deployment.yaml
 
 prefect deployment build flows/etl_bikepoints_to_ch.py:etl_bikepoints_to_ch -n etl_bikepoints_to_ch --cron '5 6 * * *'
 prefect deployment apply etl_bikepoints_to_ch-deployment.yaml
+
+prefect deployment build flows/etl_weather_to_s3.py:etl_weather_to_s3_multiple -n etl_weather_to_s3_multiple --cron '5 6 * * *'
+prefect deployment apply etl_weather_to_s3_multiple-deployment.yaml
 ```
 
 5. You can forward port using:
