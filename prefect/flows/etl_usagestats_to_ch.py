@@ -12,12 +12,6 @@ from prefect_sqlalchemy import SqlAlchemyConnector
 
 from typing import List, Optional
 
-HEADERS = (
-    'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko)'
-    'Chrome/110.0.0.0 YaBrowser/23.3.0.2318 Yowser/2.5 Safari/537.36'
-)
-HEADERS = {'user-agent': HEADERS}
-
 
 @task()
 def prepare_env(workdir: str) -> Path:

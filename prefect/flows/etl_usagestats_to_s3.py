@@ -15,12 +15,6 @@ from prefect_aws.s3 import S3Bucket
 
 from typing import List, Optional
 
-HEADERS = (
-    'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko)'
-    'Chrome/110.0.0.0 YaBrowser/23.3.0.2318 Yowser/2.5 Safari/537.36'
-)
-HEADERS = {'user-agent': HEADERS}
-
 
 @task()
 def prepare_env(workdir: str) -> Path:
@@ -58,7 +52,13 @@ def find_available_partitions(latest: Optional[int] = None) -> List[str]:
 def fetch(partition_url: str) -> pd.DataFrame:
     print(f"partition_url={partition_url}")
 
-    content = requests.get(partition_url, headers=HEADERS).text
+    headers = (
+        'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko)'
+        'Chrome/110.0.0.0 YaBrowser/23.3.0.2318 Yowser/2.5 Safari/537.36'
+    )
+    headers = {'user-agent': headers}
+
+    content = requests.get(partition_url, headers=headers).text
     content = StringIO(content)
 
     df = pd.read_csv(content)
