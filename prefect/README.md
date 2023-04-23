@@ -1,4 +1,4 @@
-## Local
+## Prefect
 
 1. Create environment to run Prefect:
 
