@@ -1,0 +1,49 @@
+###
+### A complete description of a Prefect Deployment for flow 'etl-weather-to-ch-multiple'
+###
+name: etl_weather_to_ch_multiple
+description: null
+version: 2d0af7fa8adf6723d7ad28de2a541747
+# The work queue that will handle this deployment's runs
+work_queue_name: default
+tags: []
+parameters:
+  partions_num:
+  - 202112
+schedule:
+  cron: 10 6 * * *
+  timezone: null
+  day_or: true
+infra_overrides: {}
+infrastructure:
+  type: process
+  env: {}
+  labels: {}
+  name: null
+  command: null
+  stream_output: true
+  working_dir: null
+  block_type_slug: process
+  _block_type_slug: process
+
+###
+### DO NOT EDIT BELOW THIS LINE
+###
+flow_name: etl-weather-to-ch-multiple
+manifest_path: null
+storage: null
+path: /Users/vladimir/Documents/de-zoomcamp-cycling-2023/prefect
+entrypoint: flows/etl_weather_to_ch.py:etl_weather_to_ch_multiple
+parameter_openapi_schema:
+  title: Parameters
+  type: object
+  properties:
+    partitions_num:
+      title: partitions_num
+      position: 0
+      type: array
+      items:
+        type: integer
+  required:
+  - partitions_num
+  definitions: null

@@ -22,7 +22,9 @@ prefect agent start --work-queue "default"
 
 - `AWS Credentials` named `yandex-cloud-s3-credentials`;
 - `S3Bucket` named `yandex-cloud-s3-bucket`;
-- `SQLAlchemy Connector` named `yandex-cloud-clickhouse-connector`.
+- `SQLAlchemy Connector` named `yandex-cloud-clickhouse-connector`;
+- `Secret` named `ceda-archive-secret`;
+- `dbt Core Operation` name `dbt-core`.
 
 4. Deploy commands:
 
@@ -41,6 +43,12 @@ prefect deployment apply etl_bikepoints_to_ch-deployment.yaml
 
 prefect deployment build flows/etl_weather_to_s3.py:etl_weather_to_s3_multiple -n etl_weather_to_s3_multiple --cron '5 6 * * *'
 prefect deployment apply etl_weather_to_s3_multiple-deployment.yaml
+
+prefect deployment build flows/etl_weather_to_ch.py:etl_weather_to_ch_multiple -n etl_weather_to_ch_multiple --cron '10 6 * * *' --param partions_num=[202112]
+prefect deployment apply etl_weather_to_ch_multiple-deployment.yaml
+
+prefect deployment build flows/trigger_dbt_flow.py:trigger_dbt_flow -n trigger_dbt_flow --cron '15 6 * * *'
+prefect deployment apply trigger_dbt_flow-deployment.yaml
 ```
 
 5. You can forward port using:
