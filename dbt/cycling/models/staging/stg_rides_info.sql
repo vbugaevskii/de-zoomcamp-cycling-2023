@@ -11,6 +11,14 @@ with bike_point_db as (
         Lat,
         Lon
     from {{ source('staging', 'bike_point') }}
+
+    union all
+
+    select
+        Id as station_id,
+        Lat,
+        Lon
+    from {{ source('staging', 'bike_point') }}
 )
 
 select
@@ -30,7 +38,6 @@ select
 from (
     select *
     from {{ source('staging', 'usage_stats') }}
-    where toYYYYMMDD(start_datetime) >= toYYYYMMDD(toStartOfYear(now() - interval 1 year))
 ) as db_raw
 inner join bike_point_db as sbp
 on sbp.station_id = start_station_id
