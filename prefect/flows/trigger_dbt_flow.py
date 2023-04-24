@@ -13,7 +13,7 @@ def trigger_dbt_flow():
     print("List dir:", *project_dir.glob('*'), sep='\n\t')
 
     result = DbtCoreOperation(
-        commands=["pwd", "dbt debug", "dbt run"],
+        commands=["pwd", "dbt debug", "dbt run --var 'is_test_run: false'"],
         project_dir=project_dir,
         profiles_dir=project_dir,
         overwrite_profiles=False,
