@@ -36,7 +36,7 @@ resource "yandex_mdb_clickhouse_cluster" "ch_database" {
 
   clickhouse {
     resources {
-      resource_preset_id = "b1.micro"
+      resource_preset_id = "s3-c2-m8"
       disk_type_id       = "network-ssd"
       disk_size          = 10
     }
