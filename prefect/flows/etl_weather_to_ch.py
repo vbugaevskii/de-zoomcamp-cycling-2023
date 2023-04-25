@@ -116,6 +116,8 @@ def etl_weather_to_ch_multiple(partitions_num: List[int]) -> None:
 
 
 if __name__ == "__main__":
-    etl_weather_to_ch_multiple(
-        partitions_num=list(range(202001, 202013)) 
+    partitions_num = (
+        list(range(202001, 202013)) +
+        list(range(202101, 202113))
     )
+    etl_weather_to_ch_multiple(partitions_num=partitions_num)

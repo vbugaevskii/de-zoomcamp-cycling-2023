@@ -190,4 +190,4 @@ def etl_usagestats_to_s3_multiple(partitions_num: Optional[List[int]] = None, la
 
 
 if __name__ == "__main__":
-    etl_usagestats_to_s3_multiple(partitions_num=list(range(212, 314)))
+    etl_usagestats_to_s3_multiple(partitions_num=list(range(195, 363)))
