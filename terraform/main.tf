@@ -22,8 +22,8 @@ provider "yandex" {
 # Ref: https://cloud.yandex.ru/docs/storage/operations/buckets/create
 # TODO: Think how credentials can be stored in a safe way
 resource "yandex_storage_bucket" "bucket-dev" {
-  access_key = "YCAJE9DB4v57TeIVr7vOUZX5s"
-  secret_key = "YCMOAAKp7LYPNbO_dw9PaVsftyvl-sETFCt_RFrP"
+  access_key = "<access_key>"
+  secret_key = "<secret_key>"
   bucket     = "de-zoomcamp-cycling-dev"
 }
 
