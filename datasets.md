@@ -4,8 +4,9 @@ Data sources
 # TfL data
 
 The data from TfL includes details about cycling trips and docking stations. Although the API offers uniform access to several datasets, the riding data from the past has been stored in diverse formats that change over time. Two sources are used in this project:
-    1. the bike docking stations location;
-    2. the riding data for each bike rental, such as their start and end times and locations.
+
+  1. the bike docking stations location;
+  2. the riding data for each bike rental, such as their start and end times and locations.
     
 This latter dataset serves as the event data for the project.
 
