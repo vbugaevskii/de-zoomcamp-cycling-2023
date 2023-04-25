@@ -58,7 +58,7 @@ Table `bike_point` has:
 - `Id` as a primary key;
 - `TerminalName` as a surrogate key.
 
-It's a small table, it has ~700 records, so should be optimized. ClickHouse provides special format for such kind of tables, see [Dictionaries](https://clickhouse.com/docs/en/sql-reference/dictionaries), however in this pipeline this optimisation hasn't been done.
+It's a small table, it has ~700 records, so should NOT be optimized. ClickHouse provides special format for such kind of tables, see [Dictionaries](https://clickhouse.com/docs/en/sql-reference/dictionaries), however in this pipeline this optimisation hasn't been done.
 
 Table `weather` has:
 - `(date, station_id)` as a primary key (used for ordering);
