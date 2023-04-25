@@ -20,11 +20,36 @@ prefect agent start --work-queue "default"
 
 3. Create Prefect Blocks:
 
-- `AWS Credentials` named `yandex-cloud-s3-credentials`;
-- `S3Bucket` named `yandex-cloud-s3-bucket`;
-- `SQLAlchemy Connector` named `yandex-cloud-clickhouse-connector`;
-- `Secret` named `ceda-archive-secret`;
-- `dbt Core Operation` name `dbt-core`.
+- `AWS Credentials` named `yandex-cloud-s3-credentials`:
+  - Yandex.Cloud is compatible with AWS interface;
+  - you will need [service account](https://cloud.yandex.ru/docs/iam/concepts/users/service-accounts) from previous homework and [access key](https://cloud.yandex.ru/docs/iam/concepts/authorization/access-key) for it;
+  - use endpoint: https://storage.yandexcloud.net
+- `S3Bucket` named `yandex-cloud-s3-bucket`:
+  - use AWS credentials from previous step;
+  - use endpoint: https://storage.yandexcloud.net
+- `SQLAlchemy Connector` named `yandex-cloud-clickhouse-connector`:
+  - use URI:
+    ```
+    clickhouse+http://admin:password@c-<clickhouse-cluster-id>.rw.mdb.yandexcloud.net:8443/default
+    ```
+    and additional connection arguments:
+    ```json
+    {
+        "protocol": "https",
+        "verify": "YandexCA.crt"
+    }
+    ```
+- `Secret` named `ceda-archive-secret`:
+  - retrieve `ceda.session.1` cookie from your browser.
+- `dbt Core Operation` name `dbt-core`:
+  - specify commands:
+    ```json
+    [
+      "dbt debug",
+      "dbt compile",
+      "dbt run"
+    ]
+  ```
 
 4. Deploy commands:
 
@@ -51,7 +76,18 @@ prefect deployment build flows/trigger_dbt_flow.py:trigger_dbt_flow -n trigger_d
 prefect deployment apply trigger_dbt_flow-deployment.yaml
 ```
 
-5. You can forward port using:
+5. You should make the first run manually:
+
 ```bash
-ssh -i ~/.ssh/dezoomcamp -L 4200:localhost:4200 -Nf vbugaevskii@158.160.45.104
+# process partitions for rides history
+python flows/etl_usagestats_to_s3.py 
+python flows/etl_usagestats_to_ch.py
+
+# process bike points info
+python flows/etl_bikepoints_to_s3.py 
+python flows/etl_bikepoints_to_ch.py
+
+# process partition for weather history
+python flows/etl_weather_to_s3.py 
+python flows/etl_weather_to_ch.py
 ```
