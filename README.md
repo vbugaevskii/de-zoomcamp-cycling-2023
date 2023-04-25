@@ -11,7 +11,7 @@ Unfortunatelly Google Cloud and AWS are not available in my country, so [Yandex.
 In this README, an overview of the pipeline is provided; for further information, see the README files inside project's directories. The project is designed as shown on the diagram below. [Prefect](https://www.prefect.io/) is used for pipeline orchestration. All necessary data is ingested to Object Storage as soon as new partition is released. Saved data is put into [ClickHouse](https://clickhouse.com/) and transformed to data marts using [dbt](https://www.getdbt.com/). Finally, [Yandex DataLens](https://datalens.yandex.ru/) is used to visualise the data as a dashboard.
 
 <p align="center">
-  ![images/pipeline_structure.png](images/pipeline_structure.png)
+<img src="images/pipeline_structure.png" width="70%">
 </p>
 
 The pipeline solves a number of challenges. TfL's API is consistent, but doesn't provide historical data. Furthermore, the cycling data processed by the pipeline has bad consistency:
@@ -51,7 +51,7 @@ ClickHouse can be considered as a closest analog for Big Query.
 The relations between tables in ClickHouse can be considered as follows:
 
 <p align="center">
-  ![images/db_structure.png](images/pipeline_structure.png)
+<img src="images/db_structure.png" width="60%">
 </p>
 
 Table `bike_point` has:
@@ -88,13 +88,9 @@ To demonstrate how the pipeline can be used for analytics, [Yandex DataLens](htt
 
 You can use the period of time you are interested in (rides history is available since January 2020, and weather info since Januray 2020 till December 2022). The locations of the docking stations are shown on Yandex Maps.
 
-<p align="center">
-  ![images/dash_screen_01.png](images/dash_screen_01.png)
-</p>
+![images/dash_screen_01.png](images/dash_screen_01.png)
 
-<p align="center">
-  ![images/dash_screen_02.png](images/dash_screen_02.png)
-</p>
+![images/dash_screen_02.png](images/dash_screen_02.png)
 
 Using this dashboard we can find out some insights:
 - there is a correlation between weather temperature and number of rides (people prefer warm weather for their rides);
