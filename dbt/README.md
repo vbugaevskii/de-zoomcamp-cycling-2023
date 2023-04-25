@@ -24,3 +24,9 @@ dbt run -m stg_rides_info --var 'is_test_run: false'
 # run all models
 dbt run --var 'is_test_run: false'
 ```
+
+4. Regular updates are provided by prefect, see deployment:
+```bash
+prefect deployment build flows/trigger_dbt_flow.py:trigger_dbt_flow -n trigger_dbt_flow --cron '15 6 * * *'
+prefect deployment apply trigger_dbt_flow-deployment.yaml
+```
